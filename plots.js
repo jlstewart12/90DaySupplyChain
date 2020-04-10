@@ -1,51 +1,27 @@
-/* global Plotly */
-var url =
-  `https://agtransport.usda.gov/resource/wnn7-29tu.json`;
-
-/**
- * Helper function to select stock data
- * Returns an array of values
- * @param {array} rows
- * @param {integer} index
- * index 0 - Date
- * index 1 - Open
- * index 2 - High
- * index 3 - Low
- * index 4 - Close
- * index 5 - Volume
- */
-function unpack(rows, index) {
-  return rows.map(function(row) {
-    return row[index];
+  d3.json("exports_db/collection", function (data) {
+    console.log(data);
   });
-}
-/**
- * Fetch data and build the timeseries plot
- */
-function buildPlot() {
-  // @TODO: YOUR CODE HERE
-  d3.json(url).then(function(data) {
-    var year = data.dataset.year;
-    var country = data.dataset.country;
+//     var year = data.dataset.year;
+//     var country = data.dataset.country;
 
-var trace1 = {
-  type: "line",
-  x: year,
-  y: country,
-};
+// var trace1 = {
+//   type: "line",
+//   x: year,
+//   y: country,
+// };
 
-var data = [trace1];
+// var data = [trace1];
 
-var layout = {
-  title: "test chart"
-}
+// var layout = {
+//   title: "test chart"
+// }
 
-Plotly.newplot("mychart", data, layout);
+// Plotly.newplot("mychart", data, layout);
 
-  });
-}
+//   });
+// }
 
-buildPlot();
+// buildPlot();
 
 
 
