@@ -28,8 +28,11 @@
 <script src="http://d3js.org/d3.v3.min.js"></script>
 <script> 
   
-    var graphData = "{{ data }}";
-    console.log(graphData);
+  d3.json("/90DaySupplyChain/templates/", function(data) {
+    console.log(data);
+  }); 
+    // var graphData = "{{ data.export_data | safe }}";
+    // console.log(graphData);
 
 //     // Set the dimensions of the svg
 //     var margin = {top: 30, right: 50, bottom: 30, left: 50};

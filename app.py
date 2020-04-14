@@ -1,22 +1,34 @@
-from flask import Flask, request, jsonify, render_template  
+from flask import Flask, request, render_template  
 import pymongo
-from pymongo import MongoClient
 import json
-import pandas as pd
-import os
+# import pandas as pd
 
 app = Flask(__name__)
 
-client = pymongo.MongoClient("mongodb://127.0.0.1:27017")  
-db = client.exports_db   
-export_sales = db.collection
+conn = "mongodb://localhost:27017"
+client = pymongo.MongoClient(conn)
 
-@app.route("/data")
+db = client['exports_db']
+export_sales = db['collection']
+
+# @app.route("/data")
+# def index():
+#     db = export_sales.find({'Year': '2020'}, {'Commodity':'Soybeans'})
+#     export_data = db.to_dict(orient='records')
+#     export_data = json.dumps(export_data, indent=2)
+#     data = {'export_data': export_data}
+#     return render_template("index.html", data=data)
+
+FIELDS = {'Year':True,'Country':True,'Commodity':True,'Outstanding Sales, Total':True,'_id':False}
+
+@app.route("/90DaySupplyChain/templates/")
 def index():
-    export_data = export_sales.find({'Year': '2020'}, {'Commodity':'Soybeans'})
-    export_data = json.dumps(export_data, indent=2)
-    data = {'export_data': export_data}
-    return render_template("index.html", data=data)
+    exportdb = export_sales.find({'Year':2020}, projection=FIELDS, limit=10)
+    response = []
+    for export in exportdb:
+        # export['Year'] = str(export['Year'])
+        response.append(export)
+    return json.dumps(response)
 
 if __name__ == "__main__":
      app.run(debug=True)
