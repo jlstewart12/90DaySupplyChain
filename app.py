@@ -21,7 +21,7 @@ export_sales = db['collection']
 
 FIELDS = {'Year':True,'Country':True,'Commodity':True,'Outstanding Sales, Total':True,'_id':False}
 
-@app.route("/90DaySupplyChain/templates/")
+@app.route("/exportsales")
 def index():
     exportdb = export_sales.find({'Year':2020}, projection=FIELDS, limit=10)
     response = []
