@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify, render_template
 import pymongo
 from pymongo import MongoClient
 import json
+import pandas as pd
 import os
 
 app = Flask(__name__)
@@ -10,7 +11,7 @@ client = pymongo.MongoClient("mongodb://127.0.0.1:27017")
 db = client.exports_db   
 export_sales = db.collection
 
-@app.route("/")
+@app.route("/data")
 def index():
     export_data = export_sales.find({'Year': '2020'}, {'Commodity':'Soybeans'})
     export_data = json.dumps(export_data, indent=2)
