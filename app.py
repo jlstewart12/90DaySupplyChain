@@ -1,6 +1,6 @@
 from flask import Flask, render_template
 import pymongo
-#import json
+import json
 #from bson.json_util import dumps
 
 app = Flask(__name__)
@@ -19,10 +19,16 @@ collection = db['collection']
 
 @app.route("/")
 def index():
-    inventory = list(collection.find())
-    print(inventory)
+    exportdb = collection.find({}, {'_id':0, 'Year': 2020})
+    response = []
+    for export in exportdb:
+        export['Year'] = str(export['Year'])
+        response.append(export)
+    return json.dumps(response)
 
-    return render_template("index.html", inventory = inventory)
+    # print(inventory)
+
+    # return render_template("index.html", inventory = inventory)
 
 # @app.route("/exports_db/collection")
 # def export_sales():
