@@ -8,27 +8,48 @@ app = Flask(__name__)
 conn = "mongodb://localhost:27017"
 client = pymongo.MongoClient(conn)
 
-db = client['exports_db']
-export_sales = db['collection']
+db = client['USDAtransports']
+export_sales = db['Export_Sales']
+grain_inspections = db['Grain_Inspections']
+truck_volumes = db['Ref_Truck_Volumes']
+fuel_prices = db['Diesel_Fuel_Prices']
 
-# @app.route("/data")
-# def index():
-#     db = export_sales.find({'Year': '2020'}, {'Commodity':'Soybeans'})
-#     export_data = db.to_dict(orient='records')
-#     export_data = json.dumps(export_data, indent=2)
-#     data = {'export_data': export_data}
-#     return render_template("index.html", data=data)
-
-FIELDS = {'Year':True,'Country':True,'Commodity':True,'Outstanding Sales, Total':True,'_id':False}
+Efields = {'Year':True,'Country':True,'Commodity':True,'Outstanding Sales, Total':True,'_id':False}
+Gfields = {'Week':True,'Month':True,'Year':True,'Grain':True,'Destination':True, 'Port':True, 'MT':True, 'Pounds':True, 'Field_Office':True,'_id':False}
+Tfields = {'Weekday':True,'Month':True,'Year':True,'Region':True, 'Origin':True, 'Commodity':True, '10,000 LBS':True,'_id':False}
+Ffields = {'Week':True,'Month':True,'Year':True,'Region':True, 'Diesel Price':True,'_id':False}
 
 @app.route("/exportsales")
-def index():
-    exportdb = export_sales.find({'Year':2020}, projection=FIELDS, limit=10)
+def exports():
+    exportdb = export_sales.find({'Year':2020}, projection=Efields, limit=20)
     response = []
-    for export in exportdb:
-        # export['Year'] = str(export['Year'])
-        response.append(export)
-    return json.dumps(response)
+    for sale in exportdb:
+        response.append(sale)
+    return render_template("index.html", sale=json.dumps(response))
+
+@app.route("/graininspections")
+def grains():
+    graindb = grain_inspections.find({'Year':2020}, projection=Gfields, limit=20)
+    response = []
+    for i in graindb:
+        response.append(i)
+    return render_template("index.html", sale=json.dumps(response))
+
+@app.route("/truckvolumes")
+def trucks():
+    truckdb = truck_volumes.find({'Year':2020}, projection=Tfields, limit=20)
+    response = []
+    for vol in truckdb:
+        response.append(vol)
+    return render_template("index.html", sale=json.dumps(response))
+
+@app.route("/dieselprices")
+def prices():
+    fueldb = fuel_prices.find({'Year':2020}, projection=Ffields, limit=20)
+    response = []
+    for price in fueldb:
+        response.append(price)
+    return render_template("index.html", sale=json.dumps(response))
 
 if __name__ == "__main__":
      app.run(debug=True)

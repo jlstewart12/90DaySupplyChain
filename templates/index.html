@@ -28,13 +28,13 @@
 <script src="http://d3js.org/d3.v3.min.js"></script>
 <script> 
   
-  var url = "http://127.0.0.1:5000/exportsales/";
+  // var url = "http://127.0.0.1:5000/exportsales/";
 
-  d3.json(url, function(data) {
-    console.log(data);
-  }); 
-    // var graphData = "{{ data.export_data | safe }}";
-    // console.log(graphData);
+  // d3.json(url, function(data) {
+  //   console.log(data);
+  // }); 
+    var exportsData = {{ sale | tojson }};
+    console.log(exportsData);
 
 //     // Set the dimensions of the svg
 //     var margin = {top: 30, right: 50, bottom: 30, left: 50};
