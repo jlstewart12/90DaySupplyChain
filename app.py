@@ -1,6 +1,7 @@
-from flask import Flask, render_template
-from bson.objectid import ObjectId
+from flask import Flask, jsonify, request, render_template
 import pymongo
+import json
+import pandas as pd
 
 app = Flask(__name__)
 
@@ -10,25 +11,17 @@ client = pymongo.MongoClient(conn)
 
 # connect to mongo db and collection
 db = client.grainUSDA_db
-collection = db.collection
+collections = db.collection
 
-# print(inventory)
 @app.route("/")
 def index():
-    
-    # write a statement that finds all the items in the db and sets it to a variable
-    # inventory = list(collection.find({'Date':ObjectId}))
-    # print(inventory)
-    
-    # inventory = []
-    inventory = collection.find()
-    # for i in inventory:
-    #     values = i['Date']
-    #     inventory.append(values)
+    x = []
+    cursor = collections.find()
+    for i in cursor:
+        x.append(i)
+    # x = pd.DataFrame(list(db.grainUSDA.find())).to_dict()
+    # #
+    return render_template("index.html",Data=x)
 
-    # render an index.html template and pass it the data you retrieved from the database
-    return render_template("index.html", inventory=inventory)
-    
-    
 if __name__ == "__main__":
     app.run(debug=True)
