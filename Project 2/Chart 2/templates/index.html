@@ -4,11 +4,15 @@
     <meta charset="UTF-8">
     <title>chart</title>
     <link rel="stylesheet" href="{{ url_for('static',     filename='assets/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="d3Style.css">
+    <style>.highcharts-container > svg > text {display: none}</style>
 </head>
 <body>
 <div class="container">
   <div class="jumbotron">
-    <h1>Pound and MT Chart</h1>
+    <h1>Total Pounds and Metric Tons Per Day Chart</h1>
     <p>You can see Pound and MT amount per day,per destination in this chart...</p>
   </div>
     <div class="row">
@@ -35,5 +39,5 @@
 <script src="{{ url_for('static',     filename='assets/js/highcharts-3d.js') }}"></script>
 <script src="{{ url_for('static',     filename='assets/js/cylinder.js') }}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
-<script src="{{ url_for('static',     filename='assets/js/main.js') }}"></script>
+<script src="{{ url_for('static',     filename='assets/js/plot.js') }}"></script>
 </html>
