@@ -12,8 +12,14 @@
 <body>
 <div class="container">
   <div class="jumbotron">
-    <h1>Total Pounds and Metric Tons Per Day Chart</h1>
-    <p>You can see Pound and MT amount per day,per destination in this chart...</p>
+    <h1>2020 Grain Inspections</h1>
+    <p>These charts display the volumes of U.S. grains inspected for export from major U.S. port 
+        regions and countries of destination.</p>
+    
+    <p>The selected dates range from from 1/2/2020 - 3/26/2020</p>
+
+    <p>When clicking a specific grain, you will be able to view each destinations grains were exported to. </p>
+    <h2> Choose to view between Pounds and Metric Tons.</h2>
   </div>
     <div class="row">
         <div class="col-md-2">
@@ -28,6 +34,12 @@
     <div id="Grain_all_data_per_day"></div>
     <div id="Destination_per_date_Grain"></div>
 </div>
+    <div>
+        <!-- <p style=Font-family:Lucida;Font-size:20px;color:#C08C81;background-color:rgb(226,226,226);>
+         When clicking a specific grain, you will be able to view each destinations grains were exported to. 
+        Choose to view between Pounds and Metric Tons.
+        </p> -->
+    </div>
 </body>
 <script>
      var all_data = '{{ Data }}';
@@ -39,5 +51,5 @@
 <script src="{{ url_for('static',     filename='assets/js/highcharts-3d.js') }}"></script>
 <script src="{{ url_for('static',     filename='assets/js/cylinder.js') }}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
-<script src="{{ url_for('static',     filename='assets/js/plot.js') }}"></script>
+<script src="{{ url_for('static',     filename='assets/js/app.js') }}"></script>
 </html>
