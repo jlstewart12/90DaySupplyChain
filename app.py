@@ -35,13 +35,6 @@ def grains():
         response.append(i)
     return render_template("index.html", sale=json.dumps(response))
 
-@app.route("/truckvolumes")
-def trucks():
-    truckdb = truck_volumes.find({'Year':2020}, projection=Tfields, limit=20)
-    response = []
-    for vol in truckdb:
-        response.append(vol)
-    return render_template("index.html", sale=json.dumps(response))
 
 @app.route("/dieselprices")
 def prices():
