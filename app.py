@@ -101,5 +101,16 @@ def supply():
 #         response.append(price)
 #     return render_template("index.html", sale=json.dumps(response))
 
+@app.route("/graininspections")
+def index():
+    x = []
+    cursor = collection.find()
+    for i in cursor:
+        x.append(i)
+    # x = pd.DataFrame(list(db.grainUSDA.find())).to_dict()
+    # #
+    return render_template("index.html",Data=x)
+
+
 if __name__ == "__main__":
      app.run(debug=True)
