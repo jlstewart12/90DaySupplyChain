@@ -1,7 +1,11 @@
-from flask import Flask, request, render_template  
+from flask import Flask, jsonify, request, render_template  
 import pymongo
 import json
-# import pandas as pd
+import pandas as pd
+import pprint
+from bson.json_util import dumps
+from bson.json_util import loads
+from bson import json_util
 
 app = Flask(__name__)
 
@@ -10,14 +14,14 @@ client = pymongo.MongoClient(conn)
 
 db = client['USDAtransports']
 export_sales = db['Export_Sales']
-# grain_inspections = db['Grain_Inspections']
-# truck_volumes = db['Ref_Truck_Volumes']
+grain_inspections = db['Grain_Inspections']
+truck_volumes = db['Ref_Truck_Volumes']
 # fuel_prices = db['Diesel_Fuel_Prices']
 
-# Efields = {'Year':True,'Country':True,'Commodity':True,'Outstanding Sales, Total':True,'_id':False}
-# Gfields = {'Week':True,'Month':True,'Year':True,'Grain':True,'Destination':True, 'Port':True, 'MT':True, 'Pounds':True, 'Field_Office':True,'_id':False}
-# Tfields = {'Weekday':True,'Month':True,'Year':True,'Region':True, 'Origin':True, 'Commodity':True, '10,000 LBS':True,'_id':False}
-# Ffields = {'Week':True,'Month':True,'Year':True,'Region':True, 'Diesel Price':True,'_id':False}
+Efields = {'Year':True,'Country':True,'Commodity':True,'Outstanding Sales, Total':True,'_id':False}
+Gfields = {'Week':True,'Month':True,'Year':True,'Grain':True,'Destination':True, 'Port':True, 'MT':True, 'Pounds':True, 'Field_Office':True,'_id':False}
+fcol = {'Weekday':True,'Month':True,'Year':True,'Region':True, 'Origin':True, 'Commodity':True, 'Tenklbs':True,'_id':False}
+Ffields = {'Week':True,'Month':True,'Year':True,'Region':True, 'Diesel Price':True,'_id':False}
 
 @app.route("/exportsales")
 def exports():
@@ -72,20 +76,21 @@ def exports():
         weekArray.append(week)
     return render_template("index.html", week=weekArray, min=20000000, max=44000000, y16Values=y16Array, y17Values=y17Array, y18Values=y18Array, y19Values=y19Array, y20Values=y20Array)
 
+@app.route("/usdaSupplies")
+def supply():
+    
+    # write a statement that finds all the items in the db and sets it to a variable
+    
+    supplies = list(db.truck_volumes.find({'Month':3},projection=fcol, limit=40))
+    data = pd.DataFrame(supplies).drop(columns=['_id'])
+    return render_template("index.html", product=data.to_dict())   
+
 # @app.route("/graininspections")
 # def grains():
 #     graindb = grain_inspections.find({'Year':2020}, projection=Gfields, limit=20)
 #     response = []
 #     for i in graindb:
 #         response.append(i)
-#     return render_template("index.html", sale=json.dumps(response))
-
-# @app.route("/truckvolumes")
-# def trucks():
-#     truckdb = truck_volumes.find({'Year':2020}, projection=Tfields, limit=20)
-#     response = []
-#     for vol in truckdb:
-#         response.append(vol)
 #     return render_template("index.html", sale=json.dumps(response))
 
 # @app.route("/dieselprices")
