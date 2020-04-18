@@ -1,9 +1,9 @@
-console.log(`data=${data}`)
+console.log(`Supplydata=${Supplydata}`)
 //console.log(`data.${data.type}`)
 //let url = "http://localhost:5000/usdaSupplies";
 //render (url);
 function makeplot() {
-  console.log(data);
+  console.log(Supplydata);
   
   function processData(allRows){
     console.log(allRows);
@@ -68,7 +68,7 @@ function makeplot() {
 
   
   };
-  processData(data);
+  processData(Supplydata);
 }
 
 makeplot();
