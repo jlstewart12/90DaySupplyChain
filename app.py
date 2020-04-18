@@ -30,27 +30,30 @@ def exports():
         { '$group': { '_id': '$Week', 'total': { '$sum': '$Outstanding Sales, Total'} } },
         { '$sort': { '_id': 1}}
     ])
-    y16Array = []
-    for totals in y16Values:
-        y16Array.append(totals)
+    # y16Array = []
+    y16Values = pd.DataFrame(y16Values).drop(columns=['_id'])
+    # for totals in y16Values:
+    #     y16Array.append(totals)
 
     y17Values = export_sales.aggregate([
         { '$match': { 'Year': 2017} },
         { '$group': { '_id': '$Week', 'total': { '$sum': '$Outstanding Sales, Total'} } },
         { '$sort': { '_id': 1}}
     ])
-    y17Array = []
-    for totals in y17Values:
-        y17Array.append(totals)
+    # y17Array = []
+    y17Values = pd.DataFrame(y17Values).drop(columns=['_id'])
+    # for totals in y17Values:
+    #     y17Array.append(totals)
 
     y18Values = export_sales.aggregate([
         { '$match': { 'Year': 2018} },
         { '$group': { '_id': '$Week', 'total': { '$sum': '$Outstanding Sales, Total'} } },
         { '$sort': { '_id': 1}}
     ])
-    y18Array = []
-    for totals in y18Values:
-        y18Array.append(totals)
+    # y18Array = []
+    y18Values = pd.DataFrame(y18Values).drop(columns=['_id'])
+    # for totals in y18Values:
+    #     y18Array.append(totals)
 
     y19Values = export_sales.aggregate([
         { '$match': { 'Year': 2019} },
@@ -58,6 +61,7 @@ def exports():
         { '$sort': { '_id': 1}}
     ])
     y19Array = []
+    y19Values = pd.DataFrame(y19Values).drop(columns=['_id'])
     for totals in y19Values:
         y19Array.append(totals)
 
@@ -67,6 +71,7 @@ def exports():
         { '$sort': { '_id': 1}}
     ])
     y20Array = []
+    y20Values = pd.DataFrame(y20Values).drop(columns=['_id'])
     for totals in y20Values:
         y20Array.append(totals)
     
@@ -74,7 +79,7 @@ def exports():
     weekArray = []
     for week in xLabels:
         weekArray.append(week)
-    return render_template("index.html", week=weekArray, min=20000000, max=44000000, y16Values=y16Array, y17Values=y17Array, y18Values=y18Array, y19Values=y19Array, y20Values=y20Array)
+    return render_template("index.html", week=weekArray, min=20000000, max=44000000, y16Values=y16Values.to_dict(), y17Values=y17Values.to_dict(), y18Values=y18Values.to_dict(), y19Values=y19Values.to_dict(), y20Values=y20Values.to_dict())
 
 @app.route("/usdaSupplies")
 def supply():

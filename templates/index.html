@@ -12,13 +12,13 @@
 <body>
     <h1> {{ title }} </h1>
     <script>
-    // xlabels = {{ week | tojson }};
-    //y16Values = {% for item in y16Values %} {{ item | tojson }} {% endfor %};
-    y16Values = {{ y16Values | tojson }};
-    console.log(y16Values);
+    xlabels = {{ week | tojson }};
+    // y16Values = {% for item in y16Values %} '{{ item }}' {% endfor %};
+    y20Values = {{ y20Values | tojson }};
+    console.log(y20Values);
     </script>
 
-<canvas id="chart" width="600" height="400"></canvas>
+<canvas id="chart" width="800" height="400"></canvas>
 <script src="static/plots.js"></script> 
 </body>
 </html>
