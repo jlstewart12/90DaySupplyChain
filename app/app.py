@@ -82,8 +82,10 @@ def supply():
     # write a statement that finds all the items in the db and sets it to a variable
     
     supplies = list(db.truck_volumes.find({'Month':3},projection=fcol, limit=40))
+    supplies2 = list(db.collection.find({'Month':1},projection=fcol, limit=40))
     data = pd.DataFrame(supplies).drop(columns=['_id'])
-    return render_template("index.html", product=data.to_dict())   
+    data2 = pd.DataFrame(supplies2).drop(columns=['_id'])
+    return render_template("index.html", product=data.to_dict(), productComp=data2.to_dict())   
 
 # @app.route("/graininspections")
 # def grains():
