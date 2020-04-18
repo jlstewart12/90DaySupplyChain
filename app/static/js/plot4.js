@@ -1,9 +1,9 @@
-console.log(`data=${data}`)
+console.log(`Compdata=${Compdata}`)
 //console.log(`data.${data.type}`)
 //let url = "http://localhost:5000/usdaSupplies";
 //render (url);
 function makeplot() {
-  console.log(data);
+  console.log(Compdata);
   
   function processData(allRows){
     console.log(allRows);
@@ -24,7 +24,10 @@ function makeplot() {
   function makePlotly( x, y){
     var plotDiv = document.getElementById("plot");
     var layout = {
-        title: 'Supply Chain',
+        title: 'January 2020 Commodity Supply',
+        yaxis:{
+          title: '10000 lbs Per Unit'
+        },
         xaxis: {
           tickangle: -45
         },
@@ -64,7 +67,7 @@ function makeplot() {
 
   
   };
-  processData(data);
+  processData(Compdata);
 }
 
 makeplot();
