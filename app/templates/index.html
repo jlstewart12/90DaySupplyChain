@@ -45,10 +45,10 @@
   </div>
     <h1> {{ title }} </h1>
     <script>
-    // xlabels = {{ week | tojson }};
+    xlabels = {{ week | tojson }};
     //y16Values = {% for item in y16Values %} {{ item | tojson }} {% endfor %};
-    y16Values = {{ y16Values | tojson }};
-    console.log(y16Values);
+//     y16Values = {{ y16Values | tojson }};
+//     console.log(y16Values);
     </script>
     <canvas id="chart" width="600" height="400"></canvas>
 <style>.highcharts-container > svg > text {display: none}</style>
